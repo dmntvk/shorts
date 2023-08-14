@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'gl/css/style.min.css' %}">
+    <title> {% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header class="headerProfile">
+        <div class="container">
+            <div class="headerProfile__inner">
+                <div class="headerProfile__user">
+                    <a class="logo" href="/">
+                        <img class="logo__img" src="{% static 'gl/images/icon/bitly_logo.svg' %}" alt="logo">
+                    </a>
+                </div>
+                <div class="header__auth">
+                    <a class="header__auth-link" href="/profile">Личный кабинет</a>
+                    <a class="header__auth-link" href="/create">Создание ссылок</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="mainProfile">
+        <div class="container">
+            <div class="mainProfile__inner">
+                <div class="mainProfile__linksInfo">
+                    <div class="mainProfile__linksInfo-title">
+                        <h2>Ссылки</h2>
+                         <h5>Всего созданно ссылок на проекте: {{ slider.count }}</h5>
+                    </div>
+                    <div class="mainProfile__linksInfo-allLinks">
+                        <h3>Все Ссылки</h3>
+                        <ul class="mainProfile__linksInfo-list">
+                            {% for slid in slider %}
+                                {% if slid.user_id == user.id %}
+                                    <li class="mainProfile__linksInfo-listItem">
+                                        <div class="mainProfile__linksInfo-date">{{ slid.created_at }}</div>
+                                        <div class="mainProfile__linksInfo-fullLink">{{ slid.full_url }}</div>
+                                        <div class="mainProfile__linksInfo-shortLink">
+                                            <a href="/{{ slid.url_hash }}">hostname/{{ slid.url_hash }}</a>
+                                        </div>
+                                        <div class="mainProfile__linksInfo-fullLink"><h5>Кол-во переходов: {{ slid.clicks }}</h5></div>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mainProfile__userInfo">
+                    <div class="mainProfile__userInfo-box">
+                        <h3 class="mainProfile__userInfo-title">Кабинет пользователя <span>{{ user.username }}</span>
+                        </h3>
+                        <div class="mainProfile__userInfo-inner">
+                            <ul class="mainProfile__userInfo-list">
+                                <li class="mainProfile__userInfo-listItem">
+                                    <span>Логин:</span> {{ user.username }}
+                                </li>
+                                <li class="mainProfile__userInfo-listItem">
+                                    <span>e-mail:</span> {{ user.email }}
+                                </li>
+                            </ul>
+                            <a href="/exit"><button class="mainProfile__userInfo-settingsBtn exit" type="submit">Выход</button></a>
+                        </div>
+                    </div>
+                        {% block main %}
+                        {% endblock %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

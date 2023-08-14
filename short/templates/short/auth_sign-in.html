@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'gl/css/style.min.css' %}">
+    <title>Страница авторизации</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__inner header_auth">
+                <a class="logo" href="/">
+                    <img class="logo__img" src="{% static 'gl/images/icon/bitly_logo.svg' %}" alt="logo">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main main_auth">
+        <div class="container">
+            <div class="main_auth__inner">
+                <h1 class="main_auth__title">Войдите и начните делиться</h1>
+                <p class="main_auth__text">
+                    У Вас нет аккаунта?
+                    <a class="main_auth__link" href="/reg">Присоединяйся</a>
+                </p>
+                {% if form.errors %}
+                    <p class="error_name">Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте еще раз.</p>
+                {% endif %}
+                    <form class="main_auth__form" method="post">
+                        {% csrf_token %}
+                    <label class="main_auth__label">
+                        Логин
+                        <div class="main_auth__inputs">{{ form.username }}</div>
+                    </label>
+        
+                    <label class="main_auth__label">
+                        Пароль
+                        <div class="main_auth__inputs">{{ form.password }}</div>
+                    </label>
+        
+                    <button class="main_auth__btn" type="submit">Авторизоваться</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

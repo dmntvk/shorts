@@ -1,0 +1,26 @@
+{% extends 'short/profile_base.html' %}
+
+{% block title %}
+Личный кабинет
+{% endblock %}
+
+{% block main %}
+<div class="mainProfile__userInfo-settings">
+                        <h3 class="mainProfile__userInfo-settingsTitle">
+                            Редактирование профиля
+                        </h3>
+                        <form class="mainProfile__userInfo-settingsForm" method="post">
+                            {% csrf_token %}
+                            <label class="mnainProfile__userInfo-settingsLabel">
+                                e-mail:
+                                <div class="main_auth__inputs">{{ updForm.email }}</div>
+                            </label>
+                            <label class="mnainProfile__userInfo-settingsLabel">
+                                username:
+                                <div class="main_auth__inputs">{{ updForm.username }}</div>
+                            </label>
+                            <hr>
+                            <button class="mainProfile__userInfo-settingsBtn" type="submit">Изменить</button>
+                        </form>
+                    </div>
+{% endblock %}
